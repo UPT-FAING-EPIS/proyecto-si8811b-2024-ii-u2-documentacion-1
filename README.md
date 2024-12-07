@@ -59,3 +59,70 @@ graph TD
     A --> E[Notificaciones]
     A --> F[Reportes]
 ```
+
+### Diagrama con objetos
+
+```mermaid
+stateDiagram-v2
+    [*] --> Autenticación
+    Autenticación --> ValidaciónCredenciales
+    ValidaciónCredenciales --> Dashboard: éxito
+    ValidaciónCredenciales --> Autenticación: fallo
+    Dashboard --> GestiónJustificaciones
+    GestiónJustificaciones --> EnvíoJustificación
+    EnvíoJustificación --> ValidaciónDatos
+    ValidaciónDatos --> NotificaciónDocente: éxito
+    ValidaciónDatos --> GestiónJustificaciones: fallo
+```
+
+### Diagrama de Secuencia
+```mermaid
+sequenceDiagram
+    participant E as Estudiante
+    participant UI as Interface
+    participant S as Sistema
+    participant BD as BaseDatos
+    participant D as Docente
+    
+    E->>UI: Inicia justificación
+    UI->>S: Solicita formulario
+    S->>BD: Consulta datos
+    BD-->>S: Retorna datos
+    S-->>UI: Muestra formulario
+    E->>UI: Completa datos
+    UI->>S: Valida datos
+    S->>BD: Guarda justificación
+    S->>D: Notifica nueva justificación
+```
+
+### Diagrama de clases
+```mermaid
+classDiagram
+    class Usuario {
+        +id: Integer
+        +nombre: String
+        +tipo: TipoUsuario
+        +autenticar()
+        +actualizarPerfil()
+    }
+    
+    class Justificacion {
+        +id: Integer
+        +fecha: Date
+        +estado: Estado
+        +evidencias: List<Archivo>
+        +enviar()
+        +evaluar()
+    }
+    
+    class Asistencia {
+        +id: Integer
+        +fecha: Date
+        +estado: EstadoAsistencia
+        +registrar()
+        +actualizar()
+    }
+    
+    Usuario "1" -- "*" Justificacion
+    Usuario "1" -- "*" Asistencia
+```
