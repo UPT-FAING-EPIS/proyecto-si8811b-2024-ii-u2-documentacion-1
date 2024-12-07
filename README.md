@@ -33,3 +33,20 @@ graph TD
     L -->M[Archiva documentación]
 
 ```
+
+```mermaid
+graph TD
+    A[Estudiante accede a app móvil] -->B[Selecciona inasistencia a justificar]
+    B -->C[Completa formulario digital]
+    C -->D[Adjunta evidencias digitales]
+    D -->E[Sistema valida información]
+    E -->F{¿Información completa?}
+    F -->|No| C
+    F -->|Sí| G[Sistema registra solicitud]
+    G -->H[Notifica automáticamente al docente]
+    H -->I[Docente revisa en plataforma]
+    I -->J{¿Aprobada?}
+    J -->|No| K[Sistema notifica rechazo]
+    J -->|Sí| L[Sistema actualiza registro]
+    L -->M[Genera registro digital]
+```
