@@ -3,11 +3,11 @@
 
 ## Integrantes
 - Cesar Fabian Chavez Linares
-
-
+  ´´mermaid
 graph TD
     A[Sistema de Autenticación] --> B[Gestión Básica de Asistencias]
     B --> C[Sistema de Justificaciones]
     C --> D[Sistema de Notificaciones]
     C --> E[Reportes y Estadísticas]
     E --> F[Funcionalidades Avanzadas]
+´´
