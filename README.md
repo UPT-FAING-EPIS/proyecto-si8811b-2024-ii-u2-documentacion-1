@@ -3,7 +3,9 @@
 
 ## Integrantes
 - Cesar Fabian Chavez Linares
-  ´´mermaid
+
+
+´´mermaid
 graph TD
     A[Sistema de Autenticación] --> B[Gestión Básica de Asistencias]
     B --> C[Sistema de Justificaciones]
