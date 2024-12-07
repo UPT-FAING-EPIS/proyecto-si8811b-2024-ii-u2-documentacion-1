@@ -50,3 +50,12 @@ graph TD
     J -->|Sí| L[Sistema actualiza registro]
     L -->M[Genera registro digital]
 ```
+
+```mermaid
+graph TD
+    A[Core] --> B[Autenticación]
+    A --> C[Gestión de Asistencias]
+    A --> D[Justificaciones]
+    A --> E[Notificaciones]
+    A --> F[Reportes]
+```
