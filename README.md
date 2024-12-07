@@ -13,3 +13,23 @@ graph TD
     C --> E[Reportes y Estadísticas]
     E --> F[Funcionalidades Avanzadas]
 ```
+
+
+
+```mermaid
+graph TD
+    A[Estudiante detecta necesidad de justificar inasistencia] -->B[Reúne documentación física]
+    B -->C[Acude a oficina académica]
+    C -->D[Presenta solicitud y documentos]
+    D -->E[Personal revisa documentación]
+    E -->F{¿Documentación completa?}
+    F -->|No| B
+    F -->|Sí| G[Registra solicitud]
+    G -->H[Envía a docente para revisión]
+    H -->I[Docente evalúa justificación]
+    I -->J{¿Aprobada?}
+    J -->|No| K[Notifica rechazo]
+    J -->|Sí| L[Registra justificación]
+    L -->M[Archiva documentación]
+
+```
