@@ -1,131 +1,175 @@
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=17169109)
-#  Proyecto “Aplicación Móvil para la Gestión y Justificación de Inasistencias de la Universidad Privada de Tacna”
+# UPT Attendance Mobile App
 
-## Integrantes
-- Cesar Fabian Chavez Linares
-- Jesús Ángel Delgado Castillo
-- Cristian Aldair Quispe Levano
-- Javier André Neira Machaca
+## Description
+The UPT Attendance mobile application is designed to streamline the process of managing and justifying student absences at Universidad Privada de Tacna. This mobile solution allows students to:
 
+- Submit absence justifications digitally
+- Track attendance in real-time
+- Receive instant notifications about their attendance status
+- View attendance history by course
+- Upload supporting documentation for absences
 
-```mermaid
-graph TD
-    A[Sistema de Autenticación] --> B[Gestión Básica de Asistencias]
-    B --> C[Sistema de Justificaciones]
-    C --> D[Sistema de Notificaciones]
-    C --> E[Reportes y Estadísticas]
-    E --> F[Funcionalidades Avanzadas]
+## Features
+- Digital absence justification system
+- Real-time attendance tracking
+- Push notifications for updates
+- Document upload functionality
+- Attendance history visualization
+- Offline mode support
+- Biometric authentication
+
+## Technical Requirements
+- Flutter SDK
+- Android Studio / Xcode
+- Minimum SDK:
+  - Android: API level 21 (Android 8.0) or higher
+  - iOS: iOS 12.0 or higher
+- Device with:
+  - 2GB RAM minimum
+  - 100MB free storage
+  - Camera access for document scanning
+  - Internet connection
+
+## Installation Guide
+
+### 1. Environment Setup
+
+First, ensure you have Flutter installed on your system:
+
+```bash
+# Check if Flutter is installed
+flutter --version
+
+# If not installed, follow these steps:
+git clone https://github.com/flutter/flutter.git
+export PATH="$PATH:`pwd`/flutter/bin"    # Add to your path
+flutter doctor                           # Verify installation
 ```
 
+### 2. Project Setup
 
+```bash
+# Clone the repository
+git clone https://github.com/your-repo/upt-attendance-mobile.git
 
-```mermaid
-graph TD
-    A[Estudiante detecta necesidad de justificar inasistencia] -->B[Reúne documentación física]
-    B -->C[Acude a oficina académica]
-    C -->D[Presenta solicitud y documentos]
-    D -->E[Personal revisa documentación]
-    E -->F{¿Documentación completa?}
-    F -->|No| B
-    F -->|Sí| G[Registra solicitud]
-    G -->H[Envía a docente para revisión]
-    H -->I[Docente evalúa justificación]
-    I -->J{¿Aprobada?}
-    J -->|No| K[Notifica rechazo]
-    J -->|Sí| L[Registra justificación]
-    L -->M[Archiva documentación]
+# Navigate to project directory
+cd upt-attendance-mobile
 
+# Install dependencies
+flutter pub get
 ```
 
-```mermaid
-graph TD
-    A[Estudiante accede a app móvil] -->B[Selecciona inasistencia a justificar]
-    B -->C[Completa formulario digital]
-    C -->D[Adjunta evidencias digitales]
-    D -->E[Sistema valida información]
-    E -->F{¿Información completa?}
-    F -->|No| C
-    F -->|Sí| G[Sistema registra solicitud]
-    G -->H[Notifica automáticamente al docente]
-    H -->I[Docente revisa en plataforma]
-    I -->J{¿Aprobada?}
-    J -->|No| K[Sistema notifica rechazo]
-    J -->|Sí| L[Sistema actualiza registro]
-    L -->M[Genera registro digital]
+### 3. Configuration
+
+Create a `config.dart` file in `lib/config/`:
+
+```dart
+class AppConfig {
+  static const String apiUrl = 'YOUR_API_URL';
+  static const String appName = 'UPT Attendance';
+  
+  // API endpoints
+  static const String loginEndpoint = '/auth/login';
+  static const String attendanceEndpoint = '/attendance';
+  static const String justificationEndpoint = '/justification';
+}
 ```
 
-```mermaid
-graph TD
-    A[Core] --> B[Autenticación]
-    A --> C[Gestión de Asistencias]
-    A --> D[Justificaciones]
-    A --> E[Notificaciones]
-    A --> F[Reportes]
+### 4. Firebase Setup
+
+1. Create a Firebase project
+2. Add your Android/iOS app in Firebase console
+3. Download and add the configuration files:
+   - Android: `google-services.json` to `android/app/`
+   - iOS: `GoogleService-Info.plist` to `ios/Runner/`
+
+### 5. Running the Application
+
+```bash
+# For development
+flutter run
+
+# Build APK
+flutter build apk
+
+# Build iOS
+flutter build ios
 ```
 
-### Diagrama con objetos
-
-```mermaid
-stateDiagram-v2
-    [*] --> Autenticación
-    Autenticación --> ValidaciónCredenciales
-    ValidaciónCredenciales --> Dashboard: éxito
-    ValidaciónCredenciales --> Autenticación: fallo
-    Dashboard --> GestiónJustificaciones
-    GestiónJustificaciones --> EnvíoJustificación
-    EnvíoJustificación --> ValidaciónDatos
-    ValidaciónDatos --> NotificaciónDocente: éxito
-    ValidaciónDatos --> GestiónJustificaciones: fallo
+## Project Structure
+```
+lib/
+├── config/             # Configuration files
+├── models/            # Data models
+├── screens/           # UI screens
+│   ├── auth/         # Authentication screens
+│   ├── home/         # Main screens
+│   └── justification/ # Justification screens
+├── services/          # API services
+├── utils/            # Utility functions
+└── widgets/          # Reusable widgets
 ```
 
-### Diagrama de Secuencia
-```mermaid
-sequenceDiagram
-    participant E as Estudiante
-    participant UI as Interface
-    participant S as Sistema
-    participant BD as BaseDatos
-    participant D as Docente
-    
-    E->>UI: Inicia justificación
-    UI->>S: Solicita formulario
-    S->>BD: Consulta datos
-    BD-->>S: Retorna datos
-    S-->>UI: Muestra formulario
-    E->>UI: Completa datos
-    UI->>S: Valida datos
-    S->>BD: Guarda justificación
-    S->>D: Notifica nueva justificación
+## Troubleshooting
+
+Common issues and solutions:
+
+1. **Build Errors**
+   ```bash
+   flutter clean
+   flutter pub get
+   flutter run
+   ```
+
+2. **Firebase Integration Issues**
+   - Verify Google Services files are in correct locations
+   - Ensure package name matches Firebase configuration
+   - Check build.gradle for correct dependencies
+
+3. **API Connection Issues**
+   - Verify API URL in config file
+   - Check internet connection
+   - Verify API endpoints are accessible
+
+## Development Commands
+
+```bash
+# Run tests
+flutter test
+
+# Check code format
+flutter format .
+
+# Analyze project
+flutter analyze
+
+# Generate APK
+flutter build apk --release
+
+# Generate iOS build
+flutter build ios --release
 ```
 
-### Diagrama de clases
-```mermaid
-classDiagram
-    class Usuario {
-        +id: Integer
-        +nombre: String
-        +tipo: TipoUsuario
-        +autenticar()
-        +actualizarPerfil()
-    }
-    
-    class Justificacion {
-        +id: Integer
-        +fecha: Date
-        +estado: Estado
-        +evidencias: List<Archivo>
-        +enviar()
-        +evaluar()
-    }
-    
-    class Asistencia {
-        +id: Integer
-        +fecha: Date
-        +estado: EstadoAsistencia
-        +registrar()
-        +actualizar()
-    }
-    
-    Usuario "1" -- "*" Justificacion
-    Usuario "1" -- "*" Asistencia
-```
+## Contributing
+Please follow these steps for contributing:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Support
+For support and queries:
+- Contact the development team at [email]
+- Check documentation at carpet
+- Report issues in the project repository
+
+## Team
+- César Fabián Chávez Linares (2019063854)
+- Cristian Aldair Quispe Levano (2018000590)
+- Javier André Neira Machaca (2017057984)
+- Delgado Castillo, Jesús Ángel (2018000491)
+
+## License
+This project is proprietary software developed for Universidad Privada de Tacna. All rights reserved.
